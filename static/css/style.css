@@ -1,0 +1,25 @@
+
+
+.user_logo{
+    background-color: red;
+}
+
+.hello{
+    color: red;
+}
+
+
+@media only screen and (max-width: 600px){
+    .additem{
+        display: flex;
+        justify-content: center;
+        background-color: red;
+    }
+}    
+/* 
+@media only screen and (max-width: 600px) {
+    .additem{
+        margin-left:'20px';
+        color : 'red';
+    }
+} */

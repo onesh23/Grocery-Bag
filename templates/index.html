@@ -1,0 +1,73 @@
+{% extends "base.html" %}
+{% load static %} 
+
+{% block title %}View Bag{% endblock title %} 
+
+{% block content %}
+
+<body>
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-12 ">
+        <h2 class="text">Welcome : <span class="text-uppercase px-2 bg-info"> {{user}}</span> </h2>
+        <h1 class="">View Grocery List</h1>
+        <div class="additem">
+          <a href="{% url 'add_item' %}">
+            <button type="button" class="btn btn-success">Add Item</button>
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-6 float-right">
+        <form action="{% url 'index' %}" method="get">
+          <div class="row">
+            <div class="col-lg-6">
+              <input type="date" name="date" class="form-control" />
+            </div>
+            <div class="col-lg-4">
+              <input type="submit" class="btn btn-danger" value="filter" />
+            </div>
+            <div class="col-lg-2">
+              <p class="mt-1"><a class="btn btn-warning" href="{% url 'signout' %}">Log Out</a></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    <br>
+    {% include 'alert.html' %}
+
+  
+    <div class="row mt-4">
+      {% for item in items %}
+      <div class="col-lg-4 mb-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{item.name}}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">{{item.quantity}}</h6>
+            {% if item.status == 'PENDING' %}
+            <p class="text-info">{{item.status}}</p>
+            {% elif item.status == 'BOUGHT' %}
+            <p class="text-success">{{item.status}}</p>
+            {% else %}
+            <p class="text-danger">{{item.status}}</p>
+            {% endif %}
+            <div class="row"> 
+              <div class="col-md-6 col-sm-4">
+                <a href="{% url 'update_item' item.id %}">
+                  <button type="button" class="btn btn-primary">UPDATE</button>
+                </a>
+              </div>
+              <div class="col-md-6 col-sm-4">
+                <a href="{% url 'delete_item' item.id %}">
+                  <button type="button" class="btn btn-danger">DELETE</button>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</body>
+{% endblock content %}
